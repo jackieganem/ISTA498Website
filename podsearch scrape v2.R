@@ -47,25 +47,42 @@ podcast_df_maker <- function(df_name,url){
   names(podcast_df) <- col_names
   
   
-  xml_file<- xmlParse(read_xml(url))
+
   
   # will take the df and append one column to our data that contains:
   
   # from dframe
   number_epis <- nrow(podcast_df)
+  if ((exists("number_epis"))==FALSE){number_epis <- NA}
+  
   avg_duration_min<- round((((sum(as.integer(podcast_df$duration)))/(number_epis)) / 60)) 
+  if ((exists("avg_duration_min"))==FALSE){avg_duration_min <- NA}
+  
   # Issues because of discrepancies in how the duration is shown. Work in progress.
   birthday<- podcast_df$date[nrow(podcast_df)] 
+  if ((exists("birthday"))==FALSE){birthday <- NA}
+  
   # I want to give podcasts zodiac signs LOL. Work in progress.
   explicit_frequency <- (table(podcast_df['explicit'])[2]) / number_epis 
+  if ((exists("explicit_frequency"))==FALSE){explicit_frequency <- NA}
+  
   # Not sure why there's NAs here. Will assess, work in progress.
 
   # from xml
+  xml_file<- xmlParse(read_xml(url))  
   
   title<- xmlToDataFrame(getNodeSet(xml_file, '//channel/title'))
+  if ((exists("title"))==FALSE){title <- NA}
+  
   image<- xmlToDataFrame(getNodeSet(xml_file, '//channel/image/url'))
+  if ((exists("image"))==FALSE){image <- NA}
+  
   description<- xmlToDataFrame(getNodeSet(xml_file, '//channel/description'))
+  if ((exists("description"))==FALSE){description <- NA}
+  
   rsslink<- xmlToDataFrame(getNodeSet(xml_file, '//channel/link')) 
+  if ((exists("rsslink"))==FALSE){rsslink <- NA}
+  
   
   # Appends a column to podsearch_df about one individual podcast! 
   
@@ -74,7 +91,6 @@ podcast_df_maker <- function(df_name,url){
   return(podsearch_df)
   
 }
-
 
 # Loads in the csv currently being used. For this, I have a tester csv with 8 podcasts listed.
 csv<- "scrape_csv/rss_sheet_v1.csv"
