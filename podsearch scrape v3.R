@@ -8,7 +8,6 @@
 # Alter duration code
 # Alter birthday code to be datetimes
 
-# Streamline this in any way possible, sweet god.
 
 # loads in packages!
 library(dplyr)
@@ -63,7 +62,12 @@ podcast_df_maker <- function(df_name,url){
   
   title<- xmlToDataFrame(getNodeSet(xml_file, '//channel/title'))
   image<- xmlToDataFrame(getNodeSet(xml_file, '//channel/image/url'))
-  description<- xmlToDataFrame(getNodeSet(xml_file, '//channel/itunes:summary'))
+  if(nrow(image)==0){
+    image<- "NO IMAGE"}
+  
+### The line "itunes:image" is throwing a HUGE fit. Can't seem to write an if statement that tries that after this one fails: it throws a fit. 
+  
+  description<- xmlToDataFrame(getNodeSet(xml_file, '//channel/description'))
   rsslink<- xmlToDataFrame(getNodeSet(xml_file, '//channel/link')) 
   explicit <- xmlToDataFrame(getNodeSet(xml_file, '//channel/itunes:explicit'))
   
@@ -87,4 +91,5 @@ for (i in 1:nrow(csv_use)){
             })
 }
 
-podsearch_df
+### Uncomment to see df in console
+# podsearch_df
