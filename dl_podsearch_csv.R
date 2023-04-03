@@ -7,7 +7,7 @@
 date <- format(Sys.Date(), '%m_%d_%Y')
 
 # Makes filename with today's date
-csv_name <- paste("podsearch_df_",date,".csv",sep="")
+csv_name <- paste("result_csv/podsearch_df_",date,".csv",sep="")
 
 # Writes it and sticks it in the environment! Need to push it to the Git if you want it saved to the Git.
 write.csv(podsearch_df, csv_name)
