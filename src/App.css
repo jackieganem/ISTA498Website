@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+.header {
+  display:flex;
+  flex-direction: row;
+}
+.navbar{
+  position:relative;
+  left: 500px;
+}
+.subtext{
+  font-size: 10px;
+  text-align: right;
+}
+.title {
+  font-size: 30px;
+  text-align: right;
+  margin-bottom: 5px;
+}
+body{
+  background-color: black;
+  color: white;
+}  
+.tab{
+  color: white;
+}
+
